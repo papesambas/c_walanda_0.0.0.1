@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  apache:
+    image: php:8.2-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - "./walanda_0.0.0.1:/var/www/html"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "23juin1973"
+      MYSQL_DATABASE: "walanda_0_0_0_1"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
